@@ -1,0 +1,3 @@
+Não esquece de apagar os txts
+
+e de criar o gitignore
