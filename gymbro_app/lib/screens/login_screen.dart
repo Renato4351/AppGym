@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../widgets/custom_text_field.dart';
+import '../widgets/primary_button.dart';
 import 'register_screen.dart';
 import 'forgot_password_screen.dart';
 
@@ -8,9 +10,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  bool _obscurePassword = true;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -23,40 +24,27 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             Text('Login', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
             SizedBox(height: 20),
-            
-            TextField(
-              controller: _emailController,
-              decoration: InputDecoration(labelText: 'E-mail'),
-            ),
+
+            CustomTextField(controller: _emailController, label: 'E-mail', keyboardType: TextInputType.emailAddress),
             SizedBox(height: 10),
-            
-            TextField(
-              controller: _passwordController,
-              obscureText: _obscurePassword,
-              decoration: InputDecoration(
-                labelText: 'Senha',
-                suffixIcon: IconButton(
-                  icon: Icon(_obscurePassword ? Icons.visibility : Icons.visibility_off),
-                  onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
-                ),
-              ),
-            ),
+
+            CustomTextField(controller: _passwordController, label: 'Senha', isPassword: true),
             SizedBox(height: 20),
 
-            ElevatedButton(
+            PrimaryButton(
+              text: 'Entrar',
               onPressed: () {
-                // TODO: Adicionar lógica de login
+                // TODO: Implementar lógica de login
               },
-              child: Text('Entrar'),
             ),
 
             TextButton(
-              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ForgotPasswordScreen())),
+              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordScreen())),
               child: Text('Esqueci minha senha'),
             ),
 
             TextButton(
-              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => RegisterScreen())),
+              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterScreen())),
               child: Text('Criar conta'),
             ),
           ],

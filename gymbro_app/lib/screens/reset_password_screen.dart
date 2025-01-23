@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../widgets/custom_text_field.dart';
+import '../widgets/primary_button.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   @override
@@ -6,9 +8,17 @@ class ResetPasswordScreen extends StatefulWidget {
 }
 
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
-  final _codeController = TextEditingController();
-  final _newPasswordController = TextEditingController();
+  final TextEditingController _codeController = TextEditingController();
+  final TextEditingController _newPasswordController = TextEditingController();
+  final TextEditingController _newPasswordConfirmController = TextEditingController();
   bool _obscurePassword = true;
+
+  @override
+  void dispose() {
+    _codeController.dispose();
+    _newPasswordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,30 +28,20 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            TextField(
-              controller: _codeController,
-              decoration: InputDecoration(labelText: 'Código de Verificação'),
-            ),
+            CustomTextField(controller: _codeController, label: 'Código de Verificação'),
             SizedBox(height: 10),
 
-            TextField(
-              controller: _newPasswordController,
-              obscureText: _obscurePassword,
-              decoration: InputDecoration(
-                labelText: 'Nova Senha',
-                suffixIcon: IconButton(
-                  icon: Icon(_obscurePassword ? Icons.visibility : Icons.visibility_off),
-                  onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
-                ),
-              ),
-            ),
-            SizedBox(height: 20),
+            CustomTextField(controller: _newPasswordController, label: 'Nova Senha', isPassword: true),
+            SizedBox(height: 10),
 
-            ElevatedButton(
+            CustomTextField(controller: _newPasswordConfirmController, label: 'Confirmar Nova Senha', isPassword: true),
+            SizedBox(height: 10),
+            
+            PrimaryButton(
+              text: 'Confirmar',
               onPressed: () {
                 // TODO: Implementar lógica de redefinição de senha
               },
-              child: Text('Confirmar'),
             ),
           ],
         ),

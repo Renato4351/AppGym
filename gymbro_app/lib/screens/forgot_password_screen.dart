@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../widgets/custom_text_field.dart';
+import '../widgets/primary_button.dart';
 import 'reset_password_screen.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
@@ -11,7 +13,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   @override
   void dispose() {
-    _emailController.dispose(); // Libera a memória do controlador
+    _emailController.dispose();
     super.dispose();
   }
 
@@ -24,22 +26,16 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextField(
-              controller: _emailController,
-              decoration: InputDecoration(
-                labelText: 'Digite seu e-mail',
-                border: OutlineInputBorder(),
-              ),
-              keyboardType: TextInputType.emailAddress,
-            ),
+            CustomTextField(controller: _emailController, label: 'Digite seu e-mail', keyboardType: TextInputType.emailAddress),
             SizedBox(height: 20),
 
-            ElevatedButton(
+            PrimaryButton(
+              text: 'Enviar código',
               onPressed: () {
                 if (_emailController.text.isNotEmpty) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ResetPasswordScreen()), // ✅ Correto agora!
+                    MaterialPageRoute(builder: (context) => ResetPasswordScreen()),
                   );
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -47,7 +43,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   );
                 }
               },
-              child: Text('Enviar código'),
             ),
           ],
         ),
